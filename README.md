@@ -41,7 +41,7 @@ Prerequisites:
 Flow:
 
 1. User scans QR code.
-2. User is redirected to https://`{CLIENT_URL}`?restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`
+2. User is redirected to https://`{CLIENT_URL}`/customer?restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`
 3. The frontend, **before displaying any content**, reads the query params (restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`) from the URL and sends a `GET` request to https://`{SERVER_URL}`/restaurant/`{RESTAURANT_ID}`/table/`{TABLE_ID}` asking for the information about the `Restaurant` and the `Table`.
 4. The backend receives the `GET` request and reads the `{RESTAURANT_ID}` and `{TABLE_ID}` from the URL.
 5. The backend queries the database with the given information. It checks if both the Restaurant and the Table exist and are enabled.

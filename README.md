@@ -41,17 +41,37 @@ Prerequisites:
 Flow:
 
 1. User scans QR code.
-2. User is redirected to https://`{CLIENT_URL}`?restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`
-3. The frontend, **before displaying any content**, reads the query params (restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`) from the URL and sends a `GET` request to https://`{SERVER_URL}`/restaurant/`{RESTAURANT_ID}`/table/`{TABLE_ID}` asking for the information about the `Restaurant` and the `Table`.
+2. User is redirected to [https://{CLIENT_URL}?restaurant_id={RESTAURANT_ID}&table_id={TABLE_ID}](https://{CLIENT_URL}?restaurant_id={RESTAURANT_ID}&table_id={TABLE_ID})
+3. The frontend, **before displaying any content**, reads the query params (restaurant_id=`{RESTAURANT_ID}`&table_id=`{TABLE_ID}`) from the URL and sends a `GET` request to [https://{SERVER_URL}/restaurant/{RESTAURANT_ID}/table/{TABLE_ID}](https://{SERVER_URL}/restaurant/{RESTAURANT_ID}/table/{TABLE_ID}) asking for the information about the `Restaurant` and the `Table`.
 4. The backend receives the `GET` request and reads the `{RESTAURANT_ID}` and `{TABLE_ID}` from the URL.
 5. The backend queries the database with the given information. It checks if both the Restaurant and the Table exist and are enabled.
-6. The backend responds with a JSON `{ restaurant_id: "", restaurant_name: "", table_id: "", table_number: ""}`
+6. The backend responds with the following JSON:
+
+```json
+{ 
+    "restaurant_id": "", 
+    "restaurant_name": "", 
+    "table_id": "", 
+    "table_number": ""
+}
+```
+
 7. The frontend receives the JSON response. It stores the information as state, and displays the following content:
    1. The restaurant name.
-   2. A button to ask for help.
-   3. A optional field to enter a message.
+   2. A message explaining what this application does.
+   3. A optional field to enter a message for the Restaurant staff.
+   4. A button to send a notification ("ask for help" or something like that).
 8. User clicks a button to ask for help. OPTIONAL: User can enter a message for the Restaurant's staff.
-9.  When the user clicks the button, a `POST` request is sent to https://`{SERVER_URL}`/notification with the following information as JSON: `{ restaurant_id: "", table_id: "", message: ""}`
+9.  When the user clicks the button, a `POST` request is sent to [https://{SERVER_URL}/notification](https://{SERVER_URL}/notification) with the following JSON: 
+
+```json    
+{ 
+    "restaurant_id": "", 
+    "table_id": "", 
+    "message": ""
+}
+```
+
 10. The backend receives the `POST` requests and reads the `restaurant_id`, the `table_id`, and the `message` from the body.
 11. The backend performs validations to check if both the restaurant and the table exist and are enabled.
 12. The backend inserts a new row in the `TableNotification` table with the given information.
@@ -59,3 +79,59 @@ Flow:
 Result:
 
 A new notification was created.
+
+### Show Notifications flow (simplified without web sockets)
+
+Prerequisites:
+
+- A Restaurant is created in the database.
+- Tables for the Restaurant are created in the database.
+- A few Notifications for some tables are created in the database.
+
+Flow:
+
+1. Employee access the URL [https://{CLIENT_URL}/staff](https://{CLIENT_URL}/staff)
+2. The frontend, **before displaying any content**, sends a GET request to [https://{SERVER_URL}/{RESTAURANT_ID}](https://{SERVER_URL}/{RESTAURANT_ID}) asking for the restaurant information.
+3. The backend receives the GET request and reads the `{RESTAURANT_ID}` from the URL.
+4. The backend checks if the Restaurant exists, and if so, returns the following JSON:
+
+```json
+{
+    "restaurant_id": "",
+    "restaurant_name": ""
+}
+```
+5. The frontend receives the JSON and stores the restaurant information as state.
+6. The frontend starts a interval of 10 seconds. Every 10 seconds, the frontend sends a GET request to [https://{SERVER_URL}/{RESTAURANT_ID}/notifications](https://{SERVER_URL}/{RESTAURANT_ID}/notifications)
+
+7. The backend receives the GET request and reads the `{RESTAURANT_ID}` from the URL.
+8. The backend checks if the Restaurant exists, and if so, it queries all the NOT VIEWED (viewed = false) notifications for the given restaurant.
+
+9. The backend responds with the following JSON:
+
+```json
+{ 
+    "notifications": [
+        {
+            "notification_id": "",
+            "table_id": "",
+            "table_number": "",
+            "created_at": ""
+        }, 
+        {
+            "notification_id": "",
+            "table_id": "",
+            "table_number": "",
+            "created_at": ""
+        }
+    ]
+}
+```
+10. The frontend receives the JSON and display/updates the list of notifications.
+
+Result:
+The employee can see all the not-viewed notifications.
+
+### Discard Notification (mark a Notification as viewed) flow
+
+TODO

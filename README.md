@@ -18,7 +18,7 @@ Folder structure:
 `Table`:
 - table_id (primary key)
 - restaurant_id (foreign key for `Restaurant`)
-- table_number (internal table number assigned by the restaurant's staff)
+- table_name (internal table number assigned by the restaurant's staff)
 - enabled (boolean value. Useful for when the Restaurant needs to disable a table for some internal reason)
 
 `TableNotification`:
@@ -52,7 +52,7 @@ Flow:
     "restaurant_id": "", 
     "restaurant_name": "", 
     "table_id": "", 
-    "table_number": ""
+    "table_name": ""
 }
 ```
 
@@ -115,14 +115,14 @@ Flow:
         {
             "notification_id": "",
             "table_id": "",
-            "table_number": "",
+            "table_name": "",
             "created_at": "",
             "message": ""
         }, 
         {
             "notification_id": "",
             "table_id": "",
-            "table_number": "",
+            "table_name": "",
             "created_at": "",
             "message": ""
         }

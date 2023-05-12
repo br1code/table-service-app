@@ -5,11 +5,11 @@ using TableService.Exceptions;
 
 namespace TableService.Services
 {
-    public class RestaurantService : IRestaurantService
+    public class RestaurantsService : IRestaurantsService
     {
         private readonly TableServiceDbContext _context;
 
-        public RestaurantService(TableServiceDbContext context)
+        public RestaurantsService(TableServiceDbContext context)
         {
             _context = context;
         }
@@ -53,7 +53,7 @@ namespace TableService.Services
                 RestaurantId = table.RestaurantId,
                 RestaurantName = table.Restaurant.Name,
                 TableId = table.TableId,
-                TableNumber = table.TableNumber
+                TableName = table.TableName
             };
         }
     }

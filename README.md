@@ -116,13 +116,15 @@ Flow:
             "notification_id": "",
             "table_id": "",
             "table_number": "",
-            "created_at": ""
+            "created_at": "",
+            "message": ""
         }, 
         {
             "notification_id": "",
             "table_id": "",
             "table_number": "",
-            "created_at": ""
+            "created_at": "",
+            "message": ""
         }
     ]
 }

@@ -2,7 +2,7 @@
 
 namespace TableService.Services
 {
-    public interface IRestaurantService
+    public interface IRestaurantsService
     {
         Task<RestaurantDTO> GetRestaurant(int restaurantId);
         Task<RestaurantTableDTO> GetTable(int restaurantId, int tableId);

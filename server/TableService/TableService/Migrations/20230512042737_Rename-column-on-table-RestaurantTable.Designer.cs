@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TableService.Data;
@@ -11,9 +12,11 @@ using TableService.Data;
 namespace TableService.Migrations
 {
     [DbContext(typeof(TableServiceDbContext))]
-    partial class TableServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230512042737_Rename-column-on-table-RestaurantTable")]
+    partial class RenamecolumnontableRestaurantTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

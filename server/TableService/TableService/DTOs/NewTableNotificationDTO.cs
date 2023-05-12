@@ -1,10 +1,9 @@
 ﻿namespace TableService.DTOs
 {
-    public class RestaurantTableDTO
+    public class NewTableNotificationDTO
     {
         public int RestaurantId { get; set; }
-        public string RestaurantName { get; set; }
         public int TableId { get; set; }
-        public string TableName { get; set; }
+        public string Message { get; set; }
     }
 }

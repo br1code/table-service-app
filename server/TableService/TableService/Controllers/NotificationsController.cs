@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TableService.DTOs;
+using TableService.Services;
 
 namespace TableService.Controllers
 {
@@ -7,22 +9,34 @@ namespace TableService.Controllers
     [ApiController]
     public class NotificationsController : ControllerBase
     {
-        [HttpGet("{restaurantId}")]
-        public async Task<IActionResult> GetNotifications(int restaurantId)
+        private readonly INotificationsService _notificationsService;
+
+        public NotificationsController(INotificationsService notificationsService)
         {
-            return Ok();
+            _notificationsService = notificationsService;
+        }
+
+        [HttpGet("{restaurantId}")]
+        public async Task<ActionResult<IEnumerable<TableNotificationDTO>>> GetNotifications(int restaurantId)
+        {
+            if (restaurantId == 0)
+            {
+                return BadRequest();
+            }
+
+            var tableNotifications = await _notificationsService.GetNotifications(restaurantId);
+            return Ok(tableNotifications);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNotification(/* TODO: From Body */)
+        public async Task<IActionResult> CreateTableNotification([FromBody] NewTableNotificationDTO newNotification)
         {
-            /* Get from body
-             { 
-                "restaurant_id": "", 
-                "table_id": "", 
-                "message": ""
+            if (newNotification == null || newNotification.RestaurantId == 0 || newNotification.TableId == 0)
+            {
+                return BadRequest();
             }
-             */
+
+            await _notificationsService.CreateNotification(newNotification);
             return Ok();
         }
     }

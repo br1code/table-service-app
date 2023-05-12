@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TableService.Data;
+using TableService.Middlewares;
 using TableService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TableServiceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddTransient<IRestaurantService, RestaurantService>();
+builder.Services.AddTransient<IRestaurantsService, RestaurantsService>();
+builder.Services.AddTransient<INotificationsService, NotificationsService>();
+
+builder.Services.AddScoped<GlobalExceptionHandlerMiddleware>();
 
 // TODO: add validators
 
@@ -33,5 +37,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.Run();

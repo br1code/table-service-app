@@ -9,9 +9,9 @@ namespace TableService.Controllers
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
-        private readonly IRestaurantService _restaurantService;
+        private readonly IRestaurantsService _restaurantService;
 
-        public RestaurantsController(IRestaurantService restaurantService)
+        public RestaurantsController(IRestaurantsService restaurantService)
         {
             _restaurantService = restaurantService;
         }
@@ -24,15 +24,8 @@ namespace TableService.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                var restaurant = await _restaurantService.GetRestaurant(restaurantId);
-                return Ok(restaurant);
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var restaurant = await _restaurantService.GetRestaurant(restaurantId);
+            return Ok(restaurant);
         }
 
         [HttpGet("{restaurantId}/table/{tableId}")]
@@ -43,17 +36,8 @@ namespace TableService.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                var table = await _restaurantService.GetTable(restaurantId, tableId);
-                return Ok(table);
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var table = await _restaurantService.GetTable(restaurantId, tableId);
+            return Ok(table);
         }
-
-
     }
 }

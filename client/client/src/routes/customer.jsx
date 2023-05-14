@@ -23,7 +23,6 @@ const CustomerView = () => {
 
   return (
     <>
-      <h1>CUSTOMER OPTIONS:</h1>
       <CustomerForm restaurant_name={RESTAURANT_ID} table_number={TABLE_ID} />
     </>
   );

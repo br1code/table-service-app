@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -23,13 +23,25 @@ function CustomerForm({ restaurant_name, table_number }) {
     setMessage("");
   };
 
+  //HandleSubmit take the event and instead of default function it will send an alert message or the customer message
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Table ID: ${tableId}`);
-    if (sendAlert) {
-      console.log(`Sending alert with message: ${message}`);
+    event.preventDefault(); 
+    if (showMessageInput && sendAlert && message) {
+      console.log(`Mensaje de Mesa ${table_number}: ${message}`);
+    } else {
+      console.log(`La Mesa ${table_number} necesita atencion`);
     }
   };
+  //This checks if the message is empty or not and based in that variable it will set true or false to the SendAlert variable
+  useEffect(() => {
+    if(message !== ""){
+      setSendAlert(true);
+    }
+    else setSendAlert(false);
+    
+  }, [message])
+  
+  
 
   return (
     <div>
@@ -61,20 +73,26 @@ function CustomerForm({ restaurant_name, table_number }) {
                 type="text"
                 fullWidth
                 value={message}
-                onChange={(event) => setMessage(event.target.value)}
+                onChange={(event) =>{
+                  setMessage(event.target.value)
+                }}
               />
             )}
           </form>
         </DialogContent>
         <DialogActions>
-          //TODO TERMINAR HANDLE SUBMIT: 
+         { //TODO TERMINAR HANDLE SUBMIT: 
           // MANDAR MENSAJE - setAlert to false
           // PEDIR ATENCION - setAlert to true
+         }
           {showMessageInput && (
-            <Button onClick={() => setSendAlert(true)}>Mandar Mensaje</Button>
+            <Button onClick={() =>{
+              setSendAlert(true)
+              handleSubmit(event)
+            }}>Mandar Mensaje</Button>
           )}
           {!showMessageInput && (
-            <Button onClick={() => handleSubmit}>Pedir Atencion</Button>
+            <Button onClick={() => handleSubmit(event)}>Pedir Atencion</Button>
           )}
         </DialogActions>
       </Dialog>

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using TableService.Data;
 using TableService.Middlewares;
 using TableService.Services;
@@ -39,5 +38,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+
+DatabaseInitializer.Initialize(app.Services);
 
 app.Run();

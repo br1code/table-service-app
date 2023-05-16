@@ -1,0 +1,17 @@
+# Ignore unnecessary build output directories
+**/[Bb]in/
+**/[Oo]bj/
+**/[Rr]elease/
+**/[Dd]ebug/
+**/[Tt]est[Rr]esults/
+**/[Bb]uild[Ll]og.*
+**/_ReSharper.*/
+**/[Tt]humbs.db
+**/*.user
+**/*.suo
+**/*.userprefs
+**/*.DS_Store
+
+# Exclude git and vscode metadata
+.git
+.vscode

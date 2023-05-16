@@ -23,13 +23,11 @@ builder.Services.AddScoped<GlobalExceptionHandlerMiddleware>();
 // TODO: configure CORS properly when running in prod
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            });
+    options.AddPolicy("CorsPolicy", builder => 
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 });
 
 var app = builder.Build();

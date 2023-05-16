@@ -28,6 +28,7 @@ function CustomerForm({ restaurant_name, table_number }) {
     event.preventDefault(); 
     if (showMessageInput && sendAlert && message) {
       console.log(`Mensaje de Mesa ${table_number}: ${message}`);
+      
     } else {
       console.log(`La Mesa ${table_number} necesita atencion`);
     }

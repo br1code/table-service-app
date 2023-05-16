@@ -3,13 +3,15 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerForm from "../components/CustomerForm";
 
-const SERVER_URL = 'localhost:5194';
+
 
 const CustomerView = () => {
-  //data fetched from the backend to valid the state of the restaurant
+  const SERVER_URL = 'localhost:8000';
+  
+  //Data fetched from the backend to valid the state of the restaurant
   const [restaurantData, setRestaurantData] = useState(null);
 
-  //with this hook we can extract the URL params
+  //With this hook we can extract the URL params
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const RESTAURANT_ID = params.get("restaurant_id");

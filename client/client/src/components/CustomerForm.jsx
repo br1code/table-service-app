@@ -81,10 +81,6 @@ function CustomerForm({ restaurant_name, table_number }) {
           </form>
         </DialogContent>
         <DialogActions>
-         { //TODO TERMINAR HANDLE SUBMIT: 
-          // MANDAR MENSAJE - setAlert to false
-          // PEDIR ATENCION - setAlert to true
-         }
           {showMessageInput && (
             <Button onClick={() =>{
               setSendAlert(true)

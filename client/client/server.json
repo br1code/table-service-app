@@ -1,0 +1,14 @@
+[
+    {
+        "restaurant_id": "123",
+        "restaurant_name": "El pepe",
+        "table_id": "2",
+        "table_name": "5"
+    },
+    {
+        "restaurant_id": "123",
+        "restaurant_name": "El pepe",
+        "table_id": "2",
+        "table_name": "5"
+    }
+]

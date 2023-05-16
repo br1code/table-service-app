@@ -1,0 +1,17 @@
+version: '3'
+services:
+  table-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build: ./TableService
+    ports:
+      - "8000:80"
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=cassie123
+      - POSTGRES_DB=table_service_database
+    restart: always
+    ports:
+      - "5432:5432"

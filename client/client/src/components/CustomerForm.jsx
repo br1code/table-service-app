@@ -10,9 +10,8 @@ import {
   TextField,
 } from "@mui/material";
 
-function CustomerForm({ restaurant_name, table_number }) {
+function CustomerForm({ restaurant_data }) {
   const [open, setOpen] = useState(true);
-  const [tableId, setTableId] = useState("");
   const [message, setMessage] = useState("");
   const [showMessageInput, setShowMessageInput] = useState(false);
   const [sendAlert, setSendAlert] = useState(false);
@@ -20,43 +19,41 @@ function CustomerForm({ restaurant_name, table_number }) {
   const handleCheckboxChange = (event) => {
     setShowMessageInput(event.target.checked);
     setSendAlert(false);
+    console.log(event.target.checked)
     setMessage("");
   };
 
   //HandleSubmit take the event and instead of default function it will send an alert message or the customer message
   const handleSubmit = (event) => {
-    event.preventDefault(); 
-    if (showMessageInput && sendAlert && message) {
-      console.log(`Mensaje de Mesa ${table_number}: ${message}`);
-      
-    } else {
-      console.log(`La Mesa ${table_number} necesita atencion`);
+    event.preventDefault();
+    const requestBody = {
+      restaurantId: restaurant_data.restaurantId,
+      tableId: restaurant_data.tableId,
+      message: message,
     }
+    fetch(`http://localhost:8000/api/Notifications`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    }).then((response) => console.log(response))
+    setMessage("");
+    setShowMessageInput(false);
   };
-  //This checks if the message is empty or not and based in that variable it will set true or false to the SendAlert variable
-  useEffect(() => {
-    if(message !== ""){
-      setSendAlert(true);
-    }
-    else setSendAlert(false);
-    
-  }, [message])
-  
-  
-
+  console.log(restaurant_data)
   return (
     <div>
       <Dialog open={open}>
-        <DialogTitle>Bienvenido a {restaurant_name}</DialogTitle>
+        <DialogTitle>Bienvenido a {restaurant_data.restaurantName}</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <TextField
               disabled
               margin="dense"
-              label={`Su mesa es la numero: ${table_number}`}
+              label={`Su mesa es la numero: ${restaurant_data.tableName}`}
               fullWidth
-              defaultValue={table_number}
-              onChange={(event) => setTableId(event.target.value)}
+              defaultValue={restaurant_data.tableName}
             />
             <FormControlLabel
               control={
@@ -74,7 +71,7 @@ function CustomerForm({ restaurant_name, table_number }) {
                 type="text"
                 fullWidth
                 value={message}
-                onChange={(event) =>{
+                onChange={(event) => {
                   setMessage(event.target.value)
                 }}
               />
@@ -83,7 +80,7 @@ function CustomerForm({ restaurant_name, table_number }) {
         </DialogContent>
         <DialogActions>
           {showMessageInput && (
-            <Button onClick={() =>{
+            <Button onClick={() => {
               setSendAlert(true)
               handleSubmit(event)
             }}>Mandar Mensaje</Button>

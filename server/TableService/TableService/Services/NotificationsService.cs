@@ -9,6 +9,9 @@ namespace TableService.Services
 {
     public class NotificationsService : INotificationsService
     {
+        // TODO: make configurable by restaurant
+        private const string DEFAULT_NOTIFICATION_MESSAGE = "La mesa {0} necesita atención,";
+
         private readonly TableServiceDbContext _context;
 
         public NotificationsService(TableServiceDbContext context)
@@ -36,7 +39,7 @@ namespace TableService.Services
             {
                 RestaurantTable = table,
                 TableId = table.TableId,
-                Message = newNotification.Message,
+                Message = GetNotificationMessage(newNotification.Message, table.TableName),
                 CreatedAt = DateTime.Now.ToUniversalTime(),
             };
 
@@ -60,6 +63,11 @@ namespace TableService.Services
                 Message = t.Message,
                 CreatedAt = t.CreatedAt
             });
+        }
+
+        private string GetNotificationMessage(string message, string tableName)
+        {
+            return string.IsNullOrEmpty(message) ? string.Format(DEFAULT_NOTIFICATION_MESSAGE, tableName) : message;
         }
     }
 }

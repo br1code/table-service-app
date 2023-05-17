@@ -7,8 +7,8 @@ const NotificationsList = ({ notifications }) => {
     <div style={{ display: "flex", flexDirection: "row", margin: "10px"}}>
       {notifications.map((notification) => (
         <NotificationCard
-          key={notification.id}
-          title={notification.table}
+          key={notification.notificationId}
+          title={notification.tableName}
           description={notification.message}
         />
       ))}

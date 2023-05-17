@@ -3,12 +3,11 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import CustomerForm from "../components/CustomerForm";
 import { CircularProgress } from "@mui/material";
+import { apiUrl } from "../constants/apiConstants";
 
 
 
 const CustomerView = () => {
-  const SERVER_URL = 'http://localhost:8000/api';
-
   //Data fetched from the backend to valid the state of the restaurant
   const [restaurantData, setRestaurantData] = useState();
 
@@ -20,7 +19,7 @@ const CustomerView = () => {
 
   //Fetch the data of the restaurant and the table to see if they're valid and then show up the interface
   React.useEffect(() => {
-    fetch(`${SERVER_URL}/Restaurants/${RESTAURANT_ID}/table/${TABLE_ID}`)
+    fetch(`${apiUrl}/Restaurants/${RESTAURANT_ID}/table/${TABLE_ID}`)
       .then((response) => response.json())
       .then((data) => setRestaurantData(data));
   }, []);

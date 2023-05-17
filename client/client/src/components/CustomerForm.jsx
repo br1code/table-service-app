@@ -9,17 +9,16 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
+import { apiUrl } from "../constants/apiConstants";
 
 function CustomerForm({ restaurant_data }) {
   const [open, setOpen] = useState(true);
   const [message, setMessage] = useState("");
   const [showMessageInput, setShowMessageInput] = useState(false);
-  const [sendAlert, setSendAlert] = useState(false);
 
   const handleCheckboxChange = (event) => {
     setShowMessageInput(event.target.checked);
     setSendAlert(false);
-    console.log(event.target.checked)
     setMessage("");
   };
 
@@ -31,7 +30,7 @@ function CustomerForm({ restaurant_data }) {
       tableId: restaurant_data.tableId,
       message: message,
     }
-    fetch(`http://localhost:8000/api/Notifications`, {
+    fetch(`${apiUrl}/api/Notifications`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,7 +40,7 @@ function CustomerForm({ restaurant_data }) {
     setMessage("");
     setShowMessageInput(false);
   };
-  console.log(restaurant_data)
+  
   return (
     <div>
       <Dialog open={open}>

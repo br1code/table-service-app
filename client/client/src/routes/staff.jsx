@@ -1,20 +1,17 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import NotificationsList from "../components/NotificationsList";
+import { apiUrl } from "../constants/apiConstants";
 
 const StaffView = () => {
   const [notifications, setNotifications] = useState([]);
-  const [restaurant_id, setRestaurantId] = useState('1');
+  const {RESTAURANT_ID} = useParams();
   
   const intervalRef = React.useRef(null);
 
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const {RESTAURANT_ID} = useParams();
-
   const fetchRestaurantNotifications = (restaurant_id) =>{
-    fetch(`http://localhost:8000/api/Notifications/${restaurant_id}`, {
+    fetch(`${apiUrl}/Notifications/${restaurant_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

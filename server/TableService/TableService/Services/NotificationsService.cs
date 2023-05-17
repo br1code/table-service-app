@@ -10,7 +10,7 @@ namespace TableService.Services
     public class NotificationsService : INotificationsService
     {
         // TODO: make configurable by restaurant
-        private const string DEFAULT_NOTIFICATION_MESSAGE = "La mesa {0} necesita atención,";
+        private const string DEFAULT_NOTIFICATION_MESSAGE = "La mesa {0} necesita atención";
 
         private readonly TableServiceDbContext _context;
 

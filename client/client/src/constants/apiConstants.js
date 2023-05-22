@@ -1,1 +1,1 @@
-export const apiUrl = process.env.SERVER_URL;
+export const apiUrl = 'http://localhost:8000/';

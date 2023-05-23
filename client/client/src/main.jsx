@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <Root />,
   },
   {
-    path: "/staff",
+    path: "/staff/:RESTAURANT_ID",
     element: <StaffView />,
   },
   {

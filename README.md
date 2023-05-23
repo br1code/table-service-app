@@ -49,10 +49,10 @@ Flow:
 
 ```json
 { 
-    "restaurant_id": "", 
-    "restaurant_name": "", 
-    "table_id": "", 
-    "table_name": ""
+    "restaurantId": "", 
+    "restaurantName": "", 
+    "tableId": "", 
+    "tableName": ""
 }
 ```
 
@@ -66,8 +66,8 @@ Flow:
 
 ```json    
 { 
-    "restaurant_id": "", 
-    "table_id": "", 
+    "restaurantId": "", 
+    "tableId": "", 
     "message": ""
 }
 ```
@@ -97,8 +97,8 @@ Flow:
 
 ```json
 {
-    "restaurant_id": "",
-    "restaurant_name": ""
+    "restaurantId": "",
+    "restaurantName": ""
 }
 ```
 5. The frontend receives the JSON and stores the restaurant information as state.
@@ -113,17 +113,17 @@ Flow:
 { 
     "notifications": [
         {
-            "notification_id": "",
-            "table_id": "",
-            "table_name": "",
-            "created_at": "",
+            "notificationId": "",
+            "tableId": "",
+            "tableName": "",
+            "createdAt": "",
             "message": ""
         }, 
         {
-            "notification_id": "",
-            "table_id": "",
-            "table_name": "",
-            "created_at": "",
+            "notificationId": "",
+            "tableId": "",
+            "tableName": "",
+            "createdAt": "",
             "message": ""
         }
     ]

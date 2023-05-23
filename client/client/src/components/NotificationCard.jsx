@@ -5,7 +5,7 @@ const NotificationCard = ({ title, description }) => {
     return (
       <Card sx={{margin: 1}}>
         <CardContent>
-          <h2>{title}</h2>
+          <h2>Mesa: {title}</h2>
           <p>{description}</p>
         </CardContent>
       </Card>
